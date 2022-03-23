@@ -93,12 +93,22 @@ function ChartContainer(props: Props) {
         maintainAspectRatio: false,
         scales: {
             x: {
+                title: {
+                    text: "Home Price (before taxes)",
+                    display: true,
+                },
                 min: (Math.round(housePrice - 25000)/10) * 10,
                 max: (Math.round(housePrice + 25000)/10) * 10,
                 ticks: {
                     // forces step size to be 1000 units
                     stepSize: 2500
                 }
+            },
+            y: {
+                title: {
+                    text: "Monthly Payment (incl. interest)",
+                    display: true,
+                },
             }
         }
     }
