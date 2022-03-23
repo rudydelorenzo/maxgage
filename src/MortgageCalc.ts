@@ -31,7 +31,7 @@ function calculateDefaultInsurance(housePrice: number, downPercent: number) : nu
     return (housePrice - (housePrice * (downPercent/100))) * (insurancePercent/100)
 }
 
-function OLDgetMonthlyMortgage({housePrice, downPercent, i, years} : mortgageDetails) : number {
+function DEPRECATED_getMonthlyMortgage({housePrice, downPercent, i, years} : mortgageDetails) : number {
     let defInsurance = calculateDefaultInsurance(housePrice, downPercent);  /* Mortgage Default Insurance */
     let pureL = housePrice - (housePrice * (downPercent/100));              /* Total loan amount (no insurance) */
     let L = pureL + defInsurance                                            /* Total loan amount */
