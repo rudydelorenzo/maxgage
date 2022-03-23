@@ -51,6 +51,14 @@ function getMonthlyMortgage({housePrice, downPercent, i, years} : mortgageDetail
     return (loanAmount * mif) / (1 - Math.pow((1 + mif), -months))
 }
 
+function getTotalLoanAmount( mgDetails : mortgageDetails) : number {
+    return (getMonthlyMortgage(mgDetails)) * (mgDetails.years * 12);
+}
+
+function getTotalInterest( mgDetails : mortgageDetails) : number {
+    return (getMonthlyMortgage(mgDetails)) * (mgDetails.years * 12) - (mgDetails.housePrice - (mgDetails.housePrice * (mgDetails.downPercent / 100)));
+}
+
 function getChartData(xType: string, yType: string, mortgageOptions: mortgageDetails) : ChartData {
     let xData: Array<number> = [];
     let yData: Array<number> = [];
@@ -74,4 +82,4 @@ function getChartData(xType: string, yType: string, mortgageOptions: mortgageDet
 })); */
 
 export type { mortgageDetails , ChartData};
-export { getMonthlyMortgage , chartTypes, getChartData };
+export { getMonthlyMortgage, getTotalLoanAmount, getTotalInterest, chartTypes, getChartData };

@@ -9,10 +9,12 @@ import AccordionComponent from "./AccordionComponent";
 type propTypes = {
     mortgageDetails: mortgageDetails,
     monthly: number,
-    netIncome: number
+    netIncome: number,
+    totalLoan: number,
+    totalInterest: number
 }
 
-function MortgageDetails({ mortgageDetails, monthly, netIncome }: propTypes) {
+function MortgageDetails({ totalLoan, mortgageDetails, monthly, netIncome, totalInterest }: propTypes) {
     const [expanded, setExpanded] = React.useState<string | false>(false);
 
     const handleChange =
@@ -49,6 +51,20 @@ function MortgageDetails({ mortgageDetails, monthly, netIncome }: propTypes) {
                 handleChange={handleChange}
                 title={'% of Monthly Net'}
                 detail={(((monthly / (netIncome / 12)) * 100).toLocaleString('en', {maximumFractionDigits: 2, minimumFractionDigits: 2})).concat("%")}
+                description={"Nulla facilisi. Phasellus sollicitudin nulla et quam mattis feugiat. Aliquam eget maximus est, id dignissim quam."}/>
+            <AccordionComponent
+                panelId={'panel5'}
+                expanded={expanded}
+                handleChange={handleChange}
+                title={'Total Loan Amount'}
+                detail={"CAD $ ".concat((totalLoan).toLocaleString('en', {maximumFractionDigits: 2, minimumFractionDigits: 2}))}
+                description={"Nulla facilisi. Phasellus sollicitudin nulla et quam mattis feugiat. Aliquam eget maximus est, id dignissim quam."}/>
+            <AccordionComponent
+                panelId={'panel6'}
+                expanded={expanded}
+                handleChange={handleChange}
+                title={'Total Interest'}
+                detail={"CAD $ ".concat((totalInterest).toLocaleString('en', {maximumFractionDigits: 2, minimumFractionDigits: 2}))}
                 description={"Nulla facilisi. Phasellus sollicitudin nulla et quam mattis feugiat. Aliquam eget maximus est, id dignissim quam."}/>
 
         </div>

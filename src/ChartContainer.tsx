@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { getMonthlyMortgage, getChartData } from "./MortgageCalc";
+import {getMonthlyMortgage, getChartData, getTotalLoanAmount, getTotalInterest} from "./MortgageCalc";
 import { chartTypes, ChartData, mortgageDetails } from "./MortgageCalc";
 import { Chart, registerables } from 'chart.js';
 import { Line } from 'react-chartjs-2';
@@ -26,6 +26,8 @@ function ChartContainer(props: Props) {
     })
 
     const [monthly, setMonthly] = useState<number>(getMonthlyMortgage(mgDetails))
+    const [totalLoan, setTotalLoan] = useState<number>(getTotalLoanAmount(mgDetails))
+    const [totalInterest, setTotalInterest] = useState<number>(getTotalInterest(mgDetails))
 
     const [chartData, setChartData] = useState<ChartData>(getChartData(chartTypes.housePrice, chartTypes.monthlyMortgage, mgDetails))
 
@@ -39,10 +41,16 @@ function ChartContainer(props: Props) {
     }, [housePrice, downPercent, i, years])
 
     useEffect(() => {
-        setMonthly(getMonthlyMortgage(mgDetails))
+        setMonthly(getMonthlyMortgage(mgDetails));
+        setTotalLoan(getTotalLoanAmount(mgDetails));
+        setTotalInterest(getTotalInterest(mgDetails));
 
-        setChartData(getChartData(chartTypes.housePrice, chartTypes.monthlyMortgage, mgDetails))
+        setChartData(getChartData(chartTypes.housePrice, chartTypes.monthlyMortgage, mgDetails));
     }, [mgDetails]);
+
+    useEffect(() => {
+
+    }, [mgDetails, monthly])
 
     const [netIncome, setNetIncome] = useState<number>(51000)
     const [mortgagePercent, setMortgagePercent] = useState<number>(30)
@@ -113,7 +121,7 @@ function ChartContainer(props: Props) {
                 <Typography variant="h2" >Results</Typography>
             </Divider>
 
-            <MortgageDetails mortgageDetails={mgDetails} monthly={monthly} netIncome={netIncome}/>
+            <MortgageDetails mortgageDetails={mgDetails} monthly={monthly} netIncome={netIncome} totalLoan={totalLoan} totalInterest={totalInterest}/>
 
             <div className="chart">
                 <Line data={data}
