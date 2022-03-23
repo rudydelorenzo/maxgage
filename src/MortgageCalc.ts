@@ -31,7 +31,7 @@ function calculateDefaultInsurance(housePrice: number, downPercent: number) : nu
     return (housePrice - (housePrice * (downPercent/100))) * (insurancePercent/100)
 }
 
-function getMonthlyMortgage({housePrice, downPercent, i, years} : mortgageDetails) : number {
+function OLDgetMonthlyMortgage({housePrice, downPercent, i, years} : mortgageDetails) : number {
     let defInsurance = calculateDefaultInsurance(housePrice, downPercent);  /* Mortgage Default Insurance */
     let pureL = housePrice - (housePrice * (downPercent/100));              /* Total loan amount (no insurance) */
     let L = pureL + defInsurance                                            /* Total loan amount */
@@ -39,6 +39,16 @@ function getMonthlyMortgage({housePrice, downPercent, i, years} : mortgageDetail
     let n = years * 12                                                      /* Total amortization period (months) */
 
     return (L * (c * Math.pow((1 + c), n)))/(Math.pow((1 + c), n) - 1)
+}
+
+function getMonthlyMortgage({housePrice, downPercent, i, years} : mortgageDetails) : number {
+    let defInsurance = calculateDefaultInsurance(housePrice, downPercent);  /* Mortgage Default Insurance */
+    let pureLoan = housePrice - (housePrice * (downPercent/100));           /* Total loan amount (no insurance) */
+    let loanAmount = pureLoan + defInsurance                                /* Total loan amount */
+    let months = years * 12                                                 /* Total amortization period (months) */
+    let mif = ((Math.pow((Math.pow((1+((i/100)/2)), 2)), (1/12))) - 1)   /* Periodic Interest Factor (Monthly) */
+
+    return (loanAmount * mif) / (1 - Math.pow((1 + mif), -months))
 }
 
 function getChartData(xType: string, yType: string, mortgageOptions: mortgageDetails) : ChartData {

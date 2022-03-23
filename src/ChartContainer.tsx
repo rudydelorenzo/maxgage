@@ -26,7 +26,6 @@ function ChartContainer(props: Props) {
     })
 
     const [monthly, setMonthly] = useState<number>(getMonthlyMortgage(mgDetails))
-    const [totalInterest, setTotalInterest] = useState<number>()
 
     const [chartData, setChartData] = useState<ChartData>(getChartData(chartTypes.housePrice, chartTypes.monthlyMortgage, mgDetails))
 

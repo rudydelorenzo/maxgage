@@ -30,10 +30,17 @@ function MortgageDetails({ mortgageDetails, monthly, netIncome }: propTypes) {
                 detail={"CAD $ ".concat(((mortgageDetails.housePrice) * (mortgageDetails.downPercent / 100)).toLocaleString('en', {maximumFractionDigits: 2, minimumFractionDigits: 2}))}
                 description={"Nulla facilisi. Phasellus sollicitudin nulla et quam mattis feugiat. Aliquam eget maximus est, id dignissim quam."}/>
             <AccordionComponent
+                panelId={'panel4'}
+                expanded={expanded}
+                handleChange={handleChange}
+                title={'Total Mortgage'}
+                detail={"CAD $ ".concat((mortgageDetails.housePrice - (mortgageDetails.downPercent / 100 * mortgageDetails.housePrice)).toLocaleString('en', {maximumFractionDigits: 2, minimumFractionDigits: 2}))}
+                description={"Nulla facilisi. Phasellus sollicitudin nulla et quam mattis feugiat. Aliquam eget maximus est, id dignissim quam."}/>
+            <AccordionComponent
                 panelId={'panel2'}
                 expanded={expanded}
                 handleChange={handleChange}
-                title={'Total Monthly Mortgage'}
+                title={'Monthly Mortgage Payment'}
                 detail={"CAD $ ".concat((monthly).toLocaleString('en', {maximumFractionDigits: 2, minimumFractionDigits: 2}))}
                 description={"Nulla facilisi. Phasellus sollicitudin nulla et quam mattis feugiat. Aliquam eget maximus est, id dignissim quam."}/>
             <AccordionComponent
@@ -43,6 +50,7 @@ function MortgageDetails({ mortgageDetails, monthly, netIncome }: propTypes) {
                 title={'% of Monthly Net'}
                 detail={(((monthly / (netIncome / 12)) * 100).toLocaleString('en', {maximumFractionDigits: 2, minimumFractionDigits: 2})).concat("%")}
                 description={"Nulla facilisi. Phasellus sollicitudin nulla et quam mattis feugiat. Aliquam eget maximus est, id dignissim quam."}/>
+
         </div>
     );
 }
