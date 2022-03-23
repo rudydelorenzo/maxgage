@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {getMonthlyMortgage, getChartData, getTotalLoanAmount, getTotalInterest} from "./MortgageCalc";
+import { getMonthlyMortgage, getChartData, getTotalLoanAmount, getTotalInterest } from "./MortgageCalc";
 import { chartTypes, ChartData, mortgageDetails } from "./MortgageCalc";
 import { Chart, registerables } from 'chart.js';
 import { Line } from 'react-chartjs-2';
