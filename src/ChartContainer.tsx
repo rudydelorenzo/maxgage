@@ -112,7 +112,7 @@ function ChartContainer(props: Props) {
                 <TextField type="number" value={housePrice} label="House Price" InputProps={{ startAdornment: <InputAdornment position="start">CAD $</InputAdornment>, inputProps: { min: 0, step: 1000 }}} onChange={(event => setHousePrice(parseInt(event.target.value)))}/>
                 <TextField type="number" value={downPercent} label="Percent Down" InputProps={{ endAdornment: <InputAdornment position="end">%</InputAdornment>}} onChange={(event => setDownPercent(parseInt(event.target.value)))} />
                 <TextField type="number" value={i} label="Interest Rate" InputProps={{ endAdornment: <InputAdornment position="end">%</InputAdornment>, inputProps: { min: 0, step: .01 }}} onChange={(event => setI(parseFloat(event.target.value)))} />
-                <TextField type="number" value={years} label="Amortization" InputProps={{ endAdornment: <InputAdornment position="end">years</InputAdornment>}} onChange={(event => setYears(parseInt(event.target.value)))} />
+                <TextField type="number" value={years} label="Amortization" InputProps={{ endAdornment: <InputAdornment position="end">years</InputAdornment>}} onChange={(event => setYears(parseFloat(event.target.value)))} />
 
                 <TextField type="number" value={netIncome} label="Net Income" InputProps={{ startAdornment: <InputAdornment position="start">CAD $</InputAdornment>, inputProps: { min: 0, step: 500 }}} onChange={(event => setNetIncome(parseInt(event.target.value)))} />
                 <TextField type="number" value={mortgagePercent} label="Income to Mortgage" InputProps={{ endAdornment: <InputAdornment position="end">%</InputAdornment>}} onChange={(event => setMortgagePercent(parseInt(event.target.value)))} />
