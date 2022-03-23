@@ -12,12 +12,6 @@ jobs:
     runs-on: self-hosted
 
     steps:
-    - name: Stop previous pm2 process
-      run: pm2 delete maxgage
     - uses: actions/checkout@v2
-    - name: Install nodeJS packages
-      run: npm i
-    - name: Build react app
-      run: npm run build
-    - name: Start up pm2 instance
-      run: pm2 start app.js --name "maxgage"
+    - name: lol
+      run: ls
