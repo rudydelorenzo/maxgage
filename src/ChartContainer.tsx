@@ -5,7 +5,7 @@ import { Chart, registerables } from 'chart.js';
 import { Line } from 'react-chartjs-2';
 import './ChartContainer.css'
 
-import {InputAdornment, TextField, Typography} from "@mui/material";
+import {Chip, Divider, InputAdornment, TextField, Typography} from "@mui/material";
 import MortgageDetails from "./MortgageDetails";
 
 Chart.register(...registerables);
@@ -96,6 +96,11 @@ function ChartContainer(props: Props) {
 
     return (
         <div className="content">
+
+            <Divider sx={{width: "clamp(7ch, 60%, 1000px)"}} variant='middle'>
+                <Typography variant="h1" >Maxgage</Typography>
+            </Divider>
+
             <div className="buttons-container">
                 <TextField type="number" value={housePrice} label="House Price" InputProps={{ startAdornment: <InputAdornment position="start">CAD $</InputAdornment>, inputProps: { min: 0, step: 1000 }}} onChange={(event => setHousePrice(parseInt(event.target.value)))}/>
                 <TextField type="number" value={downPercent} label="Percent Down" InputProps={{ endAdornment: <InputAdornment position="end">%</InputAdornment>}} onChange={(event => setDownPercent(parseInt(event.target.value)))} />
@@ -105,6 +110,9 @@ function ChartContainer(props: Props) {
                 <TextField type="number" value={netIncome} label="Net Income" InputProps={{ startAdornment: <InputAdornment position="start">CAD $</InputAdornment>, inputProps: { min: 0, step: 500 }}} onChange={(event => setNetIncome(parseInt(event.target.value)))} />
                 <TextField type="number" value={mortgagePercent} label="Income to Mortgage" InputProps={{ endAdornment: <InputAdornment position="end">%</InputAdornment>}} onChange={(event => setMortgagePercent(parseInt(event.target.value)))} />
             </div>
+            <Divider sx={{width: "clamp(7ch, 60%, 1000px)"}} variant='middle'>
+                <Typography variant="h2" >Results</Typography>
+            </Divider>
 
             <MortgageDetails mortgageDetails={mgDetails} monthly={monthly} netIncome={netIncome}/>
 
@@ -113,6 +121,8 @@ function ChartContainer(props: Props) {
                       options={chartOptions}/>
             </div>
 
+            <Chip className="footer" label="Made with ❤ in Edmonton"/>
+            <Typography variant="overline">@rudydelorenzo on github</Typography>
         </div>
     );
 }
