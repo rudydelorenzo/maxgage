@@ -11,8 +11,8 @@ type mortgageDetails = {
 }
 
 let chartTypes = {
-    housePrice: "hp",
-    monthlyMortgage: "mm"
+    housePrice: "House Price",
+    monthlyMortgage: "Monthly Mortgage"
 }
 
 function calculateDefaultInsurance(housePrice: number, downPercent: number) : number {
@@ -56,12 +56,12 @@ function getChartData(xType: string, yType: string, mortgageOptions: mortgageDet
     return {x: xData, y: yData}
 }
 
-console.log(getChartData(chartTypes.housePrice, chartTypes.monthlyMortgage, {
+/* console.log(getChartData(chartTypes.housePrice, chartTypes.monthlyMortgage, {
     housePrice: 270000,
     downPercent: 20,
     i: 3.04,
     years: 20
-}));
+})); */
 
 export type { mortgageDetails , ChartData};
-export { getMonthlyMortgage , chartTypes };
+export { getMonthlyMortgage , chartTypes, getChartData };
