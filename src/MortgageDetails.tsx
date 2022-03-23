@@ -3,7 +3,7 @@ import React from 'react';
 
 import './MortgageDetails.css';
 
-import { mortgageDetails } from "./MortgageCalc";
+import {getPrincipalLoan, mortgageDetails} from "./MortgageCalc";
 import AccordionComponent from "./AccordionComponent";
 
 type propTypes = {
@@ -35,8 +35,8 @@ function MortgageDetails({ totalLoan, mortgageDetails, monthly, netIncome, total
                 panelId={'panel4'}
                 expanded={expanded}
                 handleChange={handleChange}
-                title={'Total Mortgage'}
-                detail={"CAD $ ".concat((mortgageDetails.housePrice - (mortgageDetails.downPercent / 100 * mortgageDetails.housePrice)).toLocaleString('en', {maximumFractionDigits: 2, minimumFractionDigits: 2}))}
+                title={'Principal Loan'}
+                detail={"CAD $ ".concat((getPrincipalLoan(mortgageDetails)).toLocaleString('en', {maximumFractionDigits: 2, minimumFractionDigits: 2}))}
                 description={"Nulla facilisi. Phasellus sollicitudin nulla et quam mattis feugiat. Aliquam eget maximus est, id dignissim quam."}/>
             <AccordionComponent
                 panelId={'panel2'}

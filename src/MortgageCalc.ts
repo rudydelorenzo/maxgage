@@ -31,20 +31,21 @@ function calculateDefaultInsurance(housePrice: number, downPercent: number) : nu
     return (housePrice - (housePrice * (downPercent/100))) * (insurancePercent/100)
 }
 
-function DEPRECATED_getMonthlyMortgage({housePrice, downPercent, i, years} : mortgageDetails) : number {
-    let defInsurance = calculateDefaultInsurance(housePrice, downPercent);  /* Mortgage Default Insurance */
-    let pureL = housePrice - (housePrice * (downPercent/100));              /* Total loan amount (no insurance) */
-    let L = pureL + defInsurance                                            /* Total loan amount */
-    let c = (i/100)/12                                                      /* Monthly Interest Rate */
-    let n = years * 12                                                      /* Total amortization period (months) */
-
-    return (L * (c * Math.pow((1 + c), n)))/(Math.pow((1 + c), n) - 1)
-}
-
-function getMonthlyMortgage({housePrice, downPercent, i, years} : mortgageDetails) : number {
+function getPrincipalLoan({ housePrice, downPercent, } : mortgageDetails) : number {
     let defInsurance = calculateDefaultInsurance(housePrice, downPercent);  /* Mortgage Default Insurance */
     let pureLoan = housePrice - (housePrice * (downPercent/100));           /* Total loan amount (no insurance) */
-    let loanAmount = pureLoan + defInsurance                                /* Total loan amount */
+    return pureLoan + defInsurance
+}
+
+function getMonthlyMortgage({ housePrice, downPercent, i, years } : mortgageDetails) : number {
+    let defInsurance = calculateDefaultInsurance(housePrice, downPercent);  /* Mortgage Default Insurance */
+    let pureLoan = housePrice - (housePrice * (downPercent/100));           /* Total loan amount (no insurance) */
+    let loanAmount = getPrincipalLoan({               /* Total loan amount */
+        housePrice: housePrice,
+        downPercent: downPercent,
+        i: i,
+        years: years
+    })
     let months = years * 12                                                 /* Total amortization period (months) */
     let mif = ((Math.pow((Math.pow((1+((i/100)/2)), 2)), (1/12))) - 1)   /* Periodic Interest Factor (Monthly) */
 
@@ -56,7 +57,7 @@ function getTotalLoanAmount( mgDetails : mortgageDetails) : number {
 }
 
 function getTotalInterest( mgDetails : mortgageDetails) : number {
-    return (getMonthlyMortgage(mgDetails)) * (mgDetails.years * 12) - (mgDetails.housePrice - (mgDetails.housePrice * (mgDetails.downPercent / 100)));
+    return (getTotalLoanAmount(mgDetails)) - (mgDetails.housePrice - (mgDetails.housePrice * (mgDetails.downPercent / 100)));
 }
 
 function getChartData(xType: string, yType: string, mortgageOptions: mortgageDetails) : ChartData {
@@ -82,4 +83,4 @@ function getChartData(xType: string, yType: string, mortgageOptions: mortgageDet
 })); */
 
 export type { mortgageDetails , ChartData};
-export { getMonthlyMortgage, getTotalLoanAmount, getTotalInterest, chartTypes, getChartData };
+export { getPrincipalLoan, getMonthlyMortgage, getTotalLoanAmount, getTotalInterest, chartTypes, getChartData };
