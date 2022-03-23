@@ -5,6 +5,9 @@ import { Chart, registerables } from 'chart.js';
 import { Line } from 'react-chartjs-2';
 import './ChartContainer.css'
 
+// @ts-ignore
+import bigLogo from './BigIcon.png';
+
 import {Chip, Divider, InputAdornment, TextField, Typography} from "@mui/material";
 import MortgageDetails from "./MortgageDetails";
 
@@ -105,7 +108,11 @@ function ChartContainer(props: Props) {
         <div className="content">
 
             <Divider sx={{width: "clamp(7ch, 60%, 1000px)"}} variant='middle'>
-                <Typography variant="h1" >Maxgage</Typography>
+                <div className='title-container'>
+                    <img src={bigLogo} alt={'Maxgage Logo'}/>
+                    <Typography variant="h1" >Maxgage</Typography>
+                </div>
+
             </Divider>
 
             <div className="buttons-container">

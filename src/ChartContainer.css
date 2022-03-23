@@ -20,6 +20,23 @@ body {
     justify-content: center;
 }
 
+.title-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+    padding: 0 20px;
+}
+
+.title-container > * {
+    margin: 0 20px;
+}
+
+.title-container > img {
+    height: 5rem;
+}
+
 .buttons-container {
     width: fit-content;
     margin: 2rem;
