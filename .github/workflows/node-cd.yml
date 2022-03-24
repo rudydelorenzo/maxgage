@@ -13,7 +13,7 @@ jobs:
 
     steps:
     - name: Stop previous pm2 process
-      run: pm2 delete maxgage 2> /dev/null
+      run: pm2 delete --silent maxgage
     - uses: actions/checkout@v2
     - name: Install nodeJS packages
       run: npm i
