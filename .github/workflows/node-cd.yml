@@ -21,6 +21,8 @@ jobs:
       run: npm run build
     - name: Start up pm2 process
       run: pm2 start app.js --name "maxgage"
+    - name: Save pm2 process list
+      run: pm2 save
     - name: Wait for server to start up
       run: sleep 5
     - name: Check if online
