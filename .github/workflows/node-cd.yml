@@ -21,3 +21,5 @@ jobs:
       run: npm run build
     - name: Start up pm2 process
       run: pm2 start app.js --name "maxgage"
+    - name: Check if online
+      run: curl localhost:5003
