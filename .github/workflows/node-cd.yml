@@ -1,0 +1,27 @@
+name: Node CD
+
+on:
+  push:
+    branches: [ master, cd ]
+
+
+jobs:
+
+  deploy:
+
+    runs-on: self-hosted
+
+    steps:
+    - name: Remove pm2 process
+      run: "pm2 delete maxgage || :"
+    - uses: actions/checkout@v2
+    - name: Install nodeJS packages
+      run: npm i
+    - name: Build react app
+      run: npm run build
+    - name: Start up pm2 process
+      run: pm2 start app.js --name "maxgage"
+    - name: Wait for server to start up
+      run: sleep 5
+    - name: Check if online
+      run: curl localhost:3002
