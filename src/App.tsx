@@ -21,13 +21,43 @@ import {
 import bigLogo from "./BigIcon.png";
 import DownPaymentChart from "./DownPaymentChart";
 
+const getPropertyFromLocalStorage = (
+    storageKey: string,
+    property: string,
+): number | undefined => {
+    const val = JSON.parse(window.localStorage.getItem(storageKey) ?? "{}")[
+        property
+    ];
+
+    if (val == null) return undefined;
+
+    return parseFloat(val);
+};
+
+const MORTGAGE_DATA_LS_KEY = "MORTGAGE_DATA";
+const INCOME_DATA_LS_KEY = "INCOME_DATA";
+
 function App(): JSX.Element {
-    const [housePrice, setHousePrice] = useState<number>(300000);
-    const [downPercent, setDownPercent] = useState<number>(20);
-    const [i, setI] = useState<number>(4.89);
-    const [years, setYears] = useState<number>(20);
-    const [netIncome, setNetIncome] = useState<number>(69000);
-    const [mortgagePercent, setMortgagePercent] = useState<number>(30);
+    const [housePrice, setHousePrice] = useState<number>(
+        getPropertyFromLocalStorage(MORTGAGE_DATA_LS_KEY, "housePrice") ??
+            300000,
+    );
+    const [downPercent, setDownPercent] = useState<number>(
+        getPropertyFromLocalStorage(MORTGAGE_DATA_LS_KEY, "downPercent") ?? 20,
+    );
+    const [i, setI] = useState<number>(
+        getPropertyFromLocalStorage(MORTGAGE_DATA_LS_KEY, "i") ?? 4.89,
+    );
+    const [years, setYears] = useState<number>(
+        getPropertyFromLocalStorage(MORTGAGE_DATA_LS_KEY, "years") ?? 20,
+    );
+    const [netIncome, setNetIncome] = useState<number>(
+        getPropertyFromLocalStorage(INCOME_DATA_LS_KEY, "netIncome") ?? 69000,
+    );
+    const [mortgagePercent, setMortgagePercent] = useState<number>(
+        getPropertyFromLocalStorage(INCOME_DATA_LS_KEY, "mortgagePercent") ??
+            30,
+    );
 
     const [mgDetails, setMgDetails] = useState<MortgageDetailsType>({
         housePrice: housePrice,
@@ -51,12 +81,15 @@ function App(): JSX.Element {
 
     // updating mg details
     useEffect(() => {
-        setMgDetails({
+        const pack: MortgageDetailsType = {
             housePrice: housePrice,
             downPercent: downPercent,
             i: i,
             years: years,
-        });
+        };
+        setMgDetails(pack);
+
+        window.localStorage.setItem(MORTGAGE_DATA_LS_KEY, JSON.stringify(pack));
     }, [housePrice, downPercent, i, years]);
 
     useEffect(() => {
@@ -67,9 +100,12 @@ function App(): JSX.Element {
 
     useEffect(() => {
         setMonthlyLimit((netIncome / 12) * (mortgagePercent / 100));
-    }, [mortgagePercent, netIncome]);
 
-    useEffect(() => {}, [mgDetails, monthly]);
+        window.localStorage.setItem(
+            INCOME_DATA_LS_KEY,
+            JSON.stringify({ netIncome, mortgagePercent }),
+        );
+    }, [mortgagePercent, netIncome]);
 
     return (
         <div className="App">
@@ -111,9 +147,10 @@ function App(): JSX.Element {
                                     %
                                 </InputAdornment>
                             ),
+                            inputProps: { min: 0, step: 0.1 },
                         }}
                         onChange={(event) =>
-                            setDownPercent(parseInt(event.target.value))
+                            setDownPercent(parseFloat(event.target.value))
                         }
                     />
                     <TextField
