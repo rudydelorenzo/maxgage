@@ -1,7 +1,7 @@
 import React, { ComponentProps } from "react";
 import { getChartData, MortgageDetailsType } from "./MortgageCalc";
 import { chartTypes } from "./MortgageCalc";
-import { Chart, registerables } from "chart.js";
+import { Chart, ChartEvent, registerables } from "chart.js";
 import { Line } from "react-chartjs-2";
 import "./ChartContainer.css";
 
@@ -10,9 +10,11 @@ Chart.register(...registerables);
 function DownPaymentChart({
     mgDetails,
     monthlyLimit,
+    setDown,
 }: {
     mgDetails: MortgageDetailsType;
     monthlyLimit: number;
+    setDown: (d: number) => void;
 }): JSX.Element {
     const chartData = getChartData(
         chartTypes.downPayment,
@@ -71,6 +73,12 @@ function DownPaymentChart({
         },
         interaction: {
             mode: "nearest",
+        },
+        onClick: (e: ChartEvent & { chart: Chart }) => {
+            console.log(e.chart.tooltip?.title);
+            if (e.chart.tooltip && e.chart.tooltip.title.length > 0) {
+                setDown(parseFloat(e.chart.tooltip.title[0]));
+            }
         },
         plugins: {
             tooltip: {

@@ -4,6 +4,7 @@ import "./MortgageDetails.css";
 
 import {
     getDownPayment,
+    getMonthlyMortgage,
     getPrincipalLoan,
     MortgageDetailsType,
 } from "./MortgageCalc";
@@ -122,6 +123,26 @@ function MortgageDetails({
                 )}
                 description={
                     "Nulla facilisi. Phasellus sollicitudin nulla et quam mattis feugiat. Aliquam eget maximus est, id dignissim quam."
+                }
+            />
+            <AccordionComponent
+                panelId={"panel7"}
+                expanded={expanded}
+                handleChange={handleChange}
+                title={"Marginal Utility (+$1000)"}
+                detail={`CAD $ ${(
+                    monthly -
+                    getMonthlyMortgage({
+                        housePrice: mortgageDetails.housePrice,
+                        downPercent:
+                            mortgageDetails.downPercent +
+                            (1000 * 100) / mortgageDetails.housePrice,
+                        i: mortgageDetails.i,
+                        years: mortgageDetails.years,
+                    })
+                ).toFixed(2)}`}
+                description={
+                    "How much would you save on your monthly payment if you were to spend an extra $1000 for your down payment?"
                 }
             />
         </div>

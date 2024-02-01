@@ -232,14 +232,33 @@ function App(): JSX.Element {
                     totalInterest={totalInterest}
                 />
 
+                <Divider
+                    sx={{ width: "clamp(7ch, 60%, 1000px)", margin: "2rem 0" }}
+                    variant="middle"
+                >
+                    <Typography variant="h4">
+                        Mortgage vs. Purchase Price
+                    </Typography>
+                </Divider>
+
                 <MonthlyMortgageChart
                     mgDetails={mgDetails}
                     monthlyLimit={monthlyLimit}
                 />
 
+                <Divider
+                    sx={{ width: "clamp(7ch, 60%, 1000px)", margin: "2rem 0" }}
+                    variant="middle"
+                >
+                    <Typography variant="h4">
+                        Mortgage vs. Down Payment
+                    </Typography>
+                </Divider>
+
                 <DownPaymentChart
                     mgDetails={mgDetails}
                     monthlyLimit={monthlyLimit}
+                    setDown={setDownPercent}
                 />
 
                 <Chip className="footer" label="Made with ❤ in Edmonton" />
